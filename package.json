@@ -1,0 +1,28 @@
+{
+  "name": "mongoose-querybuilder",
+  "version": "1.0.0",
+  "description": "A querybuilder package for mongoose",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sliit-foss/mongoose-querybuilder.git"
+  },
+  "keywords": [
+    "querybuilder",
+    "mongoose",
+    "mongodb",
+    "NOSQL"
+  ],
+  "author": "SLIIT FOSS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sliit-foss/mongoose-querybuilder/issues"
+  },
+  "homepage": "https://github.com/sliit-foss/mongoose-querybuilder#readme",
+  "dependencies": {
+    "mongoose": "^6.3.3"
+  }
+}
