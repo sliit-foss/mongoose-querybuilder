@@ -1,0 +1,76 @@
+const getRequestFilters = ({ req, returnObject = false }) => {
+  const res = getRequestQueryParams({ req, returnObject });
+
+  const replaceFunction = (str) =>
+    str.replaceAll("filter[", "").replaceAll("]", "");
+
+  const filterCheck = (key) => key.includes("filter");
+
+  if (returnObject) {
+    const filterObject = {};
+    Object.keys(res).forEach((key) => {
+      if (filterCheck(key)) filterObject[replaceFunction(key)] = res[key];
+    });
+    return filterObject;
+  } else {
+    return res
+      .filter((filter) => filterCheck(filter.key))
+      .map((filter) => {
+        filter.key = replaceFunction(filter.key);
+        return filter;
+      });
+  }
+};
+
+const getRequestSorts = ({ req, returnObject = false }) => {
+  const res = getRequestQueryParams({ req, returnObject });
+
+  const sortCheck = (key) => key.includes("sort");
+
+  const getFormattedSort = (value) => {
+    let direction = 1;
+    if (value.startsWith("-")) {
+      direction = -1;
+      value = value.replace("-", "");
+    }
+    return {
+      key: value,
+      value: direction,
+    };
+  };
+
+  if (returnObject) {
+    const sortObject = {};
+    Object.keys(res).forEach((key) => {
+      if (sortCheck(key))
+        sortObject[getFormattedSort(res[key]).key] = getFormattedSort(
+          res[key]
+        ).value;
+    });
+    return sortObject;
+  } else {
+    return res
+      .filter((filter) => sortCheck(filter.key))
+      .map((filter) => getFormattedSort(filter.value));
+  }
+};
+
+const getRequestQueryParams = ({ req, returnObject = false }) => {
+  let res = returnObject ? {} : [];
+  req.query.split("&").forEach((param) => {
+    const [key, value] = param.split("=");
+    if (returnObject) {
+      if (res[key]) {
+        const genKey = `${key}-${Date.now()}`;
+        res[genKey] = value;
+      } else res[key] = value;
+    } else res.push({ key, value });
+  });
+  return res;
+};
+
+module.exports = {
+  getRequestFilters,
+  getRequestSorts,
+  getRequestQueryParams,
+};

@@ -1,28 +1,29 @@
 {
-  "name": "mongoose-querybuilder",
+  "name": "request-query-utils",
   "version": "1.0.0",
-  "description": "A querybuilder package for mongoose",
-  "main": "index.js",
+  "description": "A package to isolate filters and sorts from a given request's query parameters",
+  "main": "src/index.js",
   "scripts": {
-    "test": "test"
+    "test": "jest --config=jest.config.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sliit-foss/mongoose-querybuilder.git"
+    "url": "git+https://github.com/sliit-foss/request-query-utils.git"
   },
   "keywords": [
-    "querybuilder",
-    "mongoose",
-    "mongodb",
-    "NOSQL"
+    "query-utils",
+    "filterquery",
+    "sortquery",
+    "filter",
+    "sort",
   ],
   "author": "SLIIT FOSS",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/sliit-foss/mongoose-querybuilder/issues"
+    "url": "https://github.com/sliit-foss/request-query-utils/issues"
   },
-  "homepage": "https://github.com/sliit-foss/mongoose-querybuilder#readme",
+  "homepage": "https://github.com/sliit-foss/request-query-utils#readme",
   "dependencies": {
-    "mongoose": "^6.3.3"
+    "jest": "^28.1.0"
   }
 }
