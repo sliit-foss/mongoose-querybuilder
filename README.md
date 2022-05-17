@@ -24,19 +24,19 @@ import { getRequestFilters, getRequestSorts, getRequestQueryParams } from "reque
 
 ## Example<br/>
 
-- ### Example request uri - ?filter[name]=Akalanka&filter[age]=19&sort=-id&sort=height
+- ### Example request uri - ?filter[name]=Ciri&filter[age]=19&sort=-id&sort=height
 ```js
 const params = getRequestQueryParams({
   req, // node.js request object
 });
 
-console.log(params) // output: [{ key: 'filter[name]', value: 'Akalanka' }, { key: 'filter[age]', value: '19' }, { key: 'sort', value: '-id' }, { key: 'sort', value: 'height' } ]
+console.log(params) // output: [{ key: 'filter[name]', value: 'Ciri' }, { key: 'filter[age]', value: '19' }, { key: 'sort', value: '-id' }, { key: 'sort', value: 'height' } ]
 
 const filters = getRequestFilters({
   req, // node.js request object
 });
 
-console.log(filters) // output - [ { key: 'name', value: 'Akalanka' }, { key: 'age', value: '19' } ]
+console.log(filters) // output - [ { key: 'name', value: 'Ciri' }, { key: 'age', value: '19' } ]
 
 const sorts = getRequestSorts({
   req, // node.js request object
@@ -51,9 +51,9 @@ console.log(sorts) // output - [ { key: 'id', value: -1 }, { key: 'height', valu
 
 - For example, requests to above three functions with returnObject provided as true will result in the following outputs:
 ```js
-// getRequestQueryParams - { 'filter[name]': 'Akalanka', 'filter[age]': '19', sort: '-id', 'sort-1652632797392': 'height'  }
+// getRequestQueryParams - { 'filter[name]': 'Ciri', 'filter[age]': '19', sort: '-id', 'sort-1652632797392': 'height'  }
 
-// getRequestFilters - { name: 'Akalanka', age: '19' }
+// getRequestFilters - { name: 'Ciri', age: '19' }
 
 // getRequestSorts - { id: -1, height: 1 }
 ```

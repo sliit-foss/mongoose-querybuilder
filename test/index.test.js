@@ -5,7 +5,7 @@ const {
 } = require("../src");
 
 const req = {
-  query: "filter[name]=Akalanka&filter[age]=19&sort=-id&sort=height",
+  query: "filter[name]=Ciri&filter[age]=19&sort=-id&sort=height",
 };
 
 describe("test getRequestQueryParams func", () => {
@@ -22,7 +22,7 @@ describe("test getRequestQueryParams func", () => {
       returnObject: true,
     });
     expect(Object.keys(paramObj).length).toEqual(4);
-    expect(paramObj["filter[name]"]).toEqual("Akalanka");
+    expect(paramObj["filter[name]"]).toEqual("Ciri");
   });
 });
 
@@ -40,7 +40,7 @@ describe("test getRequestFilters func", () => {
       returnObject: true,
     });
     expect(Object.keys(paramObj).length).toEqual(2);
-    expect(paramObj.name).toEqual("Akalanka");
+    expect(paramObj.name).toEqual("Ciri");
   });
 });
 
