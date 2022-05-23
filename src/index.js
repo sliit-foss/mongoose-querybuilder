@@ -57,15 +57,18 @@ const getRequestSorts = ({ req, returnObject = false }) => {
 
 const getRequestQueryParams = ({ req, returnObject = false }) => {
   let res = returnObject ? {} : [];
-  req.query.split("&").forEach((param) => {
-    const [key, value] = param.split("=");
-    if (returnObject) {
-      if (res[key]) {
-        const genKey = `${key}-${Date.now()}`;
-        res[genKey] = value;
-      } else res[key] = value;
-    } else res.push({ key, value });
-  });
+  const query = decodeURIComponent(req.originalUrl).split("?");
+  if (query.length > 1) {
+    query[1].split("&").forEach((param) => {
+      const [key, value] = param.split("=");
+      if (returnObject) {
+        if (res[key]) {
+          const genKey = `${key}-${Date.now()}`;
+          res[genKey] = value;
+        } else res[key] = value;
+      } else res.push({ key, value });
+    });
+  }
   return res;
 };
 

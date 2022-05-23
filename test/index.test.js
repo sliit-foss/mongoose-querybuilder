@@ -5,7 +5,7 @@ const {
 } = require("../src");
 
 const req = {
-  query: "filter[name]=Ciri&filter[age]=19&sort=-id&sort=height",
+  originalUrl: "?filter[name]=Ciri&filter[age]=19&sort=-id&sort=height",
 };
 
 describe("test getRequestQueryParams func", () => {
