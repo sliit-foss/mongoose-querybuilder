@@ -61,16 +61,27 @@ const getRequestQueryParams = ({ req, returnObject = false }) => {
   if (query.length > 1) {
     query[1].split("&").forEach((param) => {
       const [key, value] = param.split("=");
-      if (returnObject) {
-        if (res[key]) {
-          const genKey = `${key}-${Date.now()}`;
-          res[genKey] = value;
-        } else res[key] = value;
-      } else res.push({ key, value });
+      if (isRegex(value)) value = new RegExp(value);
+        if (returnObject) {
+          if (res[key]) {
+            const genKey = `${key}-${Date.now()}`;
+            res[genKey] = value;
+          } else res[key] = value;
+        } else res.push({ key, value });
     });
   }
   return res;
 };
+
+const isRegex = (s) => {
+  try {
+    const m = s.match(/^([/~@;%#'])(.*?)\1([gimsuy]*)$/);
+    return m ? !!new RegExp(m[2], m[3])
+      : false;
+  } catch (e) {
+    return false
+  }
+}
 
 module.exports = {
   getRequestFilters,

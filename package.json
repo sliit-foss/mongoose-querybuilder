@@ -1,6 +1,6 @@
 {
   "name": "request-query-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A package to isolate filters and sorts from a given request's query parameters",
   "main": "src/index.js",
   "scripts": {
