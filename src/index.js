@@ -60,7 +60,7 @@ const getRequestQueryParams = ({ req, returnObject = false }) => {
   const query = decodeURIComponent(req.originalUrl).split("?");
   if (query.length > 1) {
     query[1].split("&").forEach((param) => {
-      const [key, value] = param.split("=");
+      let [key, value] = param.split("=");
       if (isRegex(value)) value = new RegExp(value);
         if (returnObject) {
           if (res[key]) {
@@ -75,7 +75,7 @@ const getRequestQueryParams = ({ req, returnObject = false }) => {
 
 const isRegex = (s) => {
   try {
-    const m = s.match(/^([/~@;%#'])(.*?)\1([gimsuy]*)$/);
+    const m = `/${s}/`.match(/^([/~@;%#'])(.*?)\1([gimsuy]*)$/);
     return m ? !!new RegExp(m[2], m[3])
       : false;
   } catch (e) {
