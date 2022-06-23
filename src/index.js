@@ -61,7 +61,7 @@ const getRequestQueryParams = ({ req, returnObject = false }) => {
   if (query.length > 1) {
     query[1].split("&").forEach((param) => {
       let [key, value] = param.split("=");
-      if (isRegex(value)) value = new RegExp(value);
+      if (isRegex(value)) value = new RegExp(value.slice(1, -1));
         if (returnObject) {
           if (res[key]) {
             const genKey = `${key}-${Date.now()}`;
@@ -75,7 +75,7 @@ const getRequestQueryParams = ({ req, returnObject = false }) => {
 
 const isRegex = (s) => {
   try {
-    const m = `/${s}/`.match(/^([/~@;%#'])(.*?)\1([gimsuy]*)$/);
+    const m = s.match(/^([/~@;%#'])(.*?)\1([gimsuy]*)$/);
     return m ? !!new RegExp(m[2], m[3])
       : false;
   } catch (e) {
