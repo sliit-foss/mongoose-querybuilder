@@ -83,7 +83,7 @@ const isRegex = (s) => {
   }
 }
 
-export const mapToFilterQuery = (filters) => {
+const mapToFilterQuery = (filters) => {
   return Object.keys(filters).map((key) => {
     return `filter[${key}]=${filters[key]}`
   }).join("&")
