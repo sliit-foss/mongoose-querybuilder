@@ -4,7 +4,7 @@ const {
   getRequestSorts,
 } = require("../src");
 
-const req = {
+let req = {
   originalUrl: "?filter[name]=Ciri&filter[age]=19&sort=-id&sort=height",
 };
 
@@ -41,6 +41,17 @@ describe("test getRequestFilters func", () => {
     });
     expect(Object.keys(paramObj).length).toEqual(2);
     expect(paramObj.name).toEqual("Ciri");
+  });
+  test("test object return type - mongoose support", async () => {
+    const paramObj = getRequestFilters({
+      req: {
+        originalUrl: "?filter[name]=Ciri&filter[age]=10,12,13,19&sort=-id&sort=height",
+      },
+      returnObject: true,
+      mongooseSupport: true,
+    });
+    expect(Object.keys(paramObj).length).toEqual(2);
+    expect(paramObj.age.$in).toEqual(["10", "12", "13", "19"]);
   });
 });
 

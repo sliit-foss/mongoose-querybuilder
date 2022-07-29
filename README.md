@@ -57,3 +57,11 @@ console.log(sorts) // output - [ { key: 'id', value: -1 }, { key: 'height', valu
 
 // getRequestSorts - { id: -1, height: 1 }
 ```
+- The getRequestFilters function can take in the parameter mongooseSupport which will modify the filter object in certain ways to match a mongoose filter query:
+
+- For example, requests to above three functions with returnObject provided as true will result in the following outputs:
+```js
+// Request uri - ?filter[name]=Ciri&filter[age]=19,20,21,22&sort=-id&sort=height
+
+// getRequestFilters - { name: 'Ciri', age: { $in: ['19', '20', '21', '22'] } }
+```

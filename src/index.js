@@ -1,4 +1,4 @@
-const getRequestFilters = ({ req, returnObject = false }) => {
+const getRequestFilters = ({ req, returnObject = false, mongooseSupport = false }) => {
   const res = getRequestQueryParams({ req, returnObject });
 
   const replaceFunction = (str) =>
@@ -7,10 +7,20 @@ const getRequestFilters = ({ req, returnObject = false }) => {
   const filterCheck = (key) => key.includes("filter");
 
   if (returnObject) {
-    const filterObject = {};
+    let filterObject = {};
     Object.keys(res).forEach((key) => {
       if (filterCheck(key)) filterObject[replaceFunction(key)] = res[key];
     });
+    if (mongooseSupport) {
+      filterObject = Object.keys(filterObject).reduce((acc, key) => {
+        if (filterObject[key].includes(',')) {
+          acc[key] = { $in: filterObject[key].split(',') };
+        } else {
+          acc[key] = filterObject[key];
+        }
+        return acc
+      }, {})
+    }
     return filterObject;
   } else {
     return res
@@ -62,12 +72,12 @@ const getRequestQueryParams = ({ req, returnObject = false }) => {
     query[1].split("&").forEach((param) => {
       let [key, value] = param.split("=");
       if (isRegex(value)) value = new RegExp(value.slice(1, -1));
-        if (returnObject) {
-          if (res[key]) {
-            const genKey = `${key}-${Date.now()}`;
-            res[genKey] = value;
-          } else res[key] = value;
-        } else res.push({ key, value });
+      if (returnObject) {
+        if (res[key]) {
+          const genKey = `${key}-${Date.now()}`;
+          res[genKey] = value;
+        } else res[key] = value;
+      } else res.push({ key, value });
     });
   }
   return res;
